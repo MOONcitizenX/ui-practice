@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI Practice</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="section">
+        <h2 class="section_title">О себе</h2>
+        <hr class="section_title-separator" />
+        <h4 class="section_subtitle">Хобби<span class="dot"></span></h4>
+        <form id="hobby-form">
+          <input
+            id="hobby-input"
+            class="hobby-input"
+            placeholder="Введите текст"
+            type="text"
+            autocomplete="off"
+          />
+        </form>
+        <ul class="hobby-list" id="mein-hobby-list"></ul>
+        <button
+          id="show-more-mine"
+          class="show-more"
+          title="Показать больше интересов"
+          onclick="toggleShowMine()"
+        ></button>
+      </section>
+      <section class="section">
+        <h2 class="section_title">Интересы друга</h2>
+        <hr class="section_title-separator" />
+        <h4 class="section_subtitle">Хобби<span class="dot"></span></h4>
+        <ul class="hobby-list" id="friend-hobby-list"></ul>
+        <button
+          id="show-more-friend"
+          class="show-more"
+          title="Показать больше интересов"
+          onclick="toggleShowFriend()"
+        ></button>
+      </section>
+    </main>
+    <div role="dialog" aria-modal="true"></div>
+    <script src="index.js"></script>
+  </body>
+</html>

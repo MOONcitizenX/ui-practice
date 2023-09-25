@@ -1,0 +1,244 @@
+:root {
+  --timing: 0.2s ease-in;
+  --color-main: #1a1a1a;
+  --color-secondary: #5f5f5f;
+  --color-orange: #ff7b00;
+  --color-green: #15c215;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: var(--color-main);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+
+.container {
+  max-width: 1240px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.section_title {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+.section_title-separator {
+  border-top: 3px solid var(--color-main);
+  margin-bottom: 30px;
+}
+
+.section_subtitle {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 22px;
+  font-weight: normal;
+}
+
+.section_subtitle .dot {
+  flex: 1;
+  border-bottom: 2px dotted var(--color-secondary);
+  height: 6px;
+}
+
+.hobby-input {
+  min-width: 280px;
+  width: 40%;
+
+  padding: 8px;
+  margin-bottom: 20px;
+  margin-left: 28px;
+
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.hobby-input::placeholder {
+  font-size: 16px;
+  line-height: 16px;
+  color: var(--color-secondary);
+}
+
+/* Hobby list */
+
+.hobby-list {
+  margin-bottom: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.hobby-list_item {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  margin-bottom: -1px;
+  margin-top: -1px;
+
+  transition: border-bottom var(--timing), border-top var(--timing);
+
+  cursor: pointer;
+}
+
+.hobby-list_item:hover,
+.hobby-list_item:focus {
+  border-bottom: 1px solid var(--color-main);
+  border-top: 1px solid var(--color-main);
+}
+
+.hobby-list_item:hover > .hobby-list_item-button,
+.hobby-list_item:focus > .hobby-list_item-button,
+.hobby-list_item:hover > .friend_complain-button,
+.hobby-list_item:focus > .friend_complain-button {
+  opacity: 1;
+}
+
+.hobby-list_item--mine {
+}
+
+.hobby-list_item--friend {
+}
+
+.friend_is-mine-text {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  display: none;
+
+  color: var(--color-green);
+  white-space: nowrap;
+}
+
+.friend_is-mine-text.is-mine {
+  display: flex;
+}
+
+.friend_complain-button {
+  min-width: fit-content;
+  margin-left: auto;
+  padding: 8px;
+
+  display: flex;
+  gap: 4px;
+  align-items: center;
+
+  opacity: 0;
+
+  transition: opacity var(--timing);
+}
+
+.friend_complain-button:hover,
+.friend_complain-button:focus {
+  opacity: 1;
+}
+
+/* Hobby item Button */
+
+.hobby-list_item-button {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+
+  text-align: center;
+
+  font-size: 0;
+  opacity: 0;
+  transition: opacity var(--timing);
+}
+
+.hobby-list_item-button:hover,
+.hobby-list_item-button:focus {
+  opacity: 1;
+}
+
+.hobby-list_item-button--friend.is-mine {
+  cursor: not-allowed;
+}
+
+/* Hobby item Text */
+
+.hobby-list_item-text {
+  position: relative;
+  width: 100%;
+
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.hobby-list_item-text::after {
+  pointer-events: none;
+  content: "";
+  background-image: url("public/fader.png");
+  background-size: contain;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 60px;
+  height: 100%;
+}
+
+.hobby-list_item-text--mine {
+}
+
+.hobby-list_item-text--friend {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Show/Hide button */
+
+.show-more {
+  margin-left: 28px;
+  margin-bottom: 30px;
+
+  display: none;
+  text-decoration: underline;
+  color: var(--color-orange);
+  font-size: 16px;
+  line-height: 16px;
+
+  transition: text-shadow var(--timing);
+}
+
+.show-more.active {
+  opacity: 1;
+  display: block;
+}
+
+.show-more:hover {
+  text-shadow: 1px 1px 3px var(--color-orange);
+}
