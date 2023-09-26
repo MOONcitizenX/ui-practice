@@ -286,8 +286,29 @@ button {
   box-shadow: 0 0 30px var(--color-main);
 }
 
+.modal__title {
+  text-align: center;
+}
+
 .modal__textarea {
   width: 100%;
   max-width: 100%;
   padding: 10px;
+}
+
+.modal__submit-button {
+  padding: 8px;
+  background-color: #fff;
+  color: var(--color-orange);
+}
+
+@media screen and (max-width: 640px) {
+  .modal__container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .modal__title {
+    font-size: 1.2rem;
+  }
 }

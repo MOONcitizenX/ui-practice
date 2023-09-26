@@ -272,7 +272,6 @@ function handleTabOutside(e) {
 }
 
 function handleEscPress(e) {
-  console.log(e);
   if (e.key === "Escape") {
     closeModal();
   }
