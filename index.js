@@ -5,7 +5,6 @@ const HOBBY_TYPES = {
   mine: "mine",
   friend: "friend",
 };
-
 const SHOW_MORE_TEXT = ["интерес", "интереса", "интересов"];
 
 const initialState = {
@@ -42,6 +41,7 @@ const initialState = {
 };
 
 let state = null;
+let isModalOpen = false;
 
 // Nodes
 const hobbyForm = document.getElementById("hobby-form");
@@ -118,8 +118,12 @@ function handleShowMoreFriend() {
   }
 }
 
+// Handling adding/removing hobbies
+
 function checkIsMine(hobby) {
-  const hobbyMatch = state?.friend?.find((el) => el?.name === hobby);
+  const hobbyMatch = state?.friend?.find(
+    (el) => el?.name?.toLowerCase() === hobby.toLowerCase(),
+  );
   if (!hobbyMatch) {
     return;
   }
@@ -127,12 +131,8 @@ function checkIsMine(hobby) {
   renderFriendHobbies();
 }
 
-function updateLocalStorage() {
-  localStorage.setItem(LS_IDENTIFIER, JSON.stringify(state));
-}
-
 function addMineHobby(hobbyName) {
-  if (state.mine.find((h) => h === hobbyName)) {
+  if (state.mine.find((h) => h.toLowerCase() === hobbyName.toLowerCase())) {
     return;
   }
   state.mine.unshift(hobbyName);
@@ -196,7 +196,7 @@ function getHobbyHTML(type, hobby) {
         }<span class="friend_is-mine-text ${
       hobby.isMine ? "is-mine" : ""
     }"><img src="public/ok.png" alt="Добавлено"/>добавлено в ваши увлечения</span></p>
-        <button tabindex="0" class="friend_complain-button"><img src="public/warn.png" alt="Пожаловаться"/><span>пожаловаться</span></button>
+        <button tabindex="0" class="friend_complain-button" onclick="openModal()"><img src="public/warn.png" alt="Пожаловаться"/><span>пожаловаться</span></button>
       </li>
       `;
   }
@@ -228,6 +228,7 @@ function renderAllHobbies() {
   renderFriendHobbies();
 }
 
+// Detect what word to use for plural/single
 function getTextOnQuantity(num, textArr) {
   num = Math.abs(num) % 100;
   const n1 = num % 10;
@@ -243,7 +244,11 @@ function getTextOnQuantity(num, textArr) {
   return textArr[2];
 }
 
-function submitForm(e) {
+function updateLocalStorage() {
+  localStorage.setItem(LS_IDENTIFIER, JSON.stringify(state));
+}
+
+function submitHobbyForm(e) {
   e.preventDefault();
 
   const value = hobbyInput.value.trim();
@@ -255,11 +260,59 @@ function submitForm(e) {
   hobbyInput.value = "";
 }
 
+// Handle modal window for complaint
+const modalForm = document.getElementById("modal-form");
+const modalTextarea = document.getElementById("modal-textarea");
+const modalWindow = document.getElementById("modal-window");
+
+function handleTabOutside(e) {
+  if (!modalForm.contains(e.target) || !e.target) {
+    modalTextarea.focus();
+  }
+}
+
+function handleEscPress(e) {
+  console.log(e);
+  if (e.key === "Escape") {
+    closeModal();
+  }
+}
+
+function openModal() {
+  modalWindow.classList.add("open");
+  modalTextarea.focus();
+  window.addEventListener("focusin", handleTabOutside);
+}
+
+function closeModal() {
+  modalWindow.classList.remove("open");
+  window.removeEventListener("focusin", handleTabOutside);
+}
+
+function submitComplaintForm(e) {
+  e.preventDefault();
+
+  const value = modalTextarea.value.trim();
+  if (!value) {
+    return;
+  }
+
+  // Add your logic here
+  console.log(value);
+
+  modalTextarea.value = "";
+  closeModal();
+}
+
 function init() {
   state = JSON.parse(localStorage.getItem(LS_IDENTIFIER)) || initialState;
   updateLocalStorage();
 
-  hobbyForm.addEventListener("submit", submitForm);
+  hobbyForm.addEventListener("submit", submitHobbyForm);
+  modalForm.addEventListener("submit", submitComplaintForm);
+  modalForm.addEventListener("click", (e) => e.stopPropagation());
+  modalWindow.addEventListener("click", closeModal);
+  modalWindow.addEventListener("keydown", handleEscPress);
 
   renderAllHobbies();
   handleShowMoreMine();
