@@ -118,6 +118,12 @@ function handleShowMoreFriend() {
   }
 }
 
+function shakeNode(node) {
+  node.classList.add("shake");
+  setTimeout(() => {
+    node.classList.remove("shake");
+  }, 600);
+}
 // Handling adding/removing hobbies
 
 function checkIsMine(hobby) {
@@ -133,6 +139,7 @@ function checkIsMine(hobby) {
 
 function addMineHobby(hobbyName) {
   if (state.mine.find((h) => h.toLowerCase() === hobbyName.toLowerCase())) {
+    shakeNode(hobbyInput);
     return;
   }
   state.mine.unshift(hobbyName);
@@ -293,6 +300,7 @@ function submitComplaintForm(e) {
 
   const value = modalTextarea.value.trim();
   if (!value) {
+    shakeNode(modalTextarea);
     return;
   }
 
