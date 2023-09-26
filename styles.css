@@ -71,7 +71,7 @@ button {
 }
 
 .hobby-input {
-  min-width: 280px;
+  min-width: 240px;
   width: 40%;
 
   padding: 8px;
@@ -214,6 +214,12 @@ button {
   height: 100%;
 }
 
+@media screen and (max-width: 640px) {
+  .hobby-list_item-text::after {
+    width: 20px;
+  }
+}
+
 .hobby-list_item-text--mine {
 }
 
@@ -244,7 +250,7 @@ button {
 }
 
 .show-more:hover {
-  text-shadow: 1px 1px 3px var(--color-orange);
+  text-shadow: 0px 1px 2px var(--color-orange);
 }
 
 /* Modal window */
@@ -303,6 +309,9 @@ button {
 }
 
 @media screen and (max-width: 640px) {
+  .modal__mask {
+    padding: 0 16px;
+  }
   .modal__container {
     padding: 16px;
     gap: 16px;
