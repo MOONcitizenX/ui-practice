@@ -161,7 +161,7 @@ function removeMineHobby(hobbyName) {
 function getHobbyHTML(type, hobby) {
   if (type === HOBBY_TYPES.mine) {
     return `
-    <li tabindex="0" class="hobby-list_item hobby-list_item--friend">
+    <li class="hobby-list_item hobby-list_item--friend">
       <button
         tabindex="0"
         class="hobby-list_item-button hobby-list_item-button--mine"
@@ -182,7 +182,7 @@ function getHobbyHTML(type, hobby) {
 
   if (type === HOBBY_TYPES.friend) {
     return `
-      <li tabindex="0" class="hobby-list_item hobby-list_item--friend">
+      <li class="hobby-list_item hobby-list_item--friend">
         <button
           tabindex="0"
           class="hobby-list_item-button hobby-list_item-button--friend ${
@@ -292,6 +292,7 @@ function openModal() {
 
 function closeModal() {
   modalWindow.classList.remove("open");
+  hobbyInput.focus();
   window.removeEventListener("focusin", handleTabOutside);
 }
 
